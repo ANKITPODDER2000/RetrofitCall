@@ -30,4 +30,10 @@ class MainRepository @Inject constructor(private val postAPI: PostAPI) {
         }
     }
 
+    fun createNewPost(post: Post): Deferred<Response<Post>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            postAPI.createNewPost(post)
+        }
+    }
+
 }

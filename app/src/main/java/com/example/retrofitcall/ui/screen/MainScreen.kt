@@ -3,6 +3,7 @@ package com.example.retrofitcall.ui.screen
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -40,8 +41,9 @@ fun MainScreen(
                     else navHostController.navigateUp()
                 },
                 {
-
-                })
+                    navHostController.navigate(NavRoute.CREATE_NEW_POST.name)
+                }
+            )
         }
     ) { paddingValues ->
         NavHost(
@@ -67,6 +69,9 @@ fun MainScreen(
                     -1
                 }
                 DetailPostScreen(mainViewModel, postId)
+            }
+            composable(NavRoute.CREATE_NEW_POST.name) {
+                AddPostScreen(mainViewModel)
             }
         }
     }
