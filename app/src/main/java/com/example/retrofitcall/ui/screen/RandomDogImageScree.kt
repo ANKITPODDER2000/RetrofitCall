@@ -104,7 +104,6 @@ fun ShowRandomDogImage(mainViewModel: MainViewModel) {
             )
         }
     }
-
 }
 
 @Composable
