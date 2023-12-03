@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RetrofitCall</string>
+    <string name="back_button">Back Button</string>
+    <string name="add_new_post">Add New Post</string>
+    <string name="show_all_posts">Show All Posts</string>
+</resources>
