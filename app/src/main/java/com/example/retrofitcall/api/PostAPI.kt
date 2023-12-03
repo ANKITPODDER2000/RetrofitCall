@@ -23,4 +23,6 @@ interface PostAPI {
     suspend fun createNewPost(
         @Body post: Post,
     ): Response<Post>
+
+
 }

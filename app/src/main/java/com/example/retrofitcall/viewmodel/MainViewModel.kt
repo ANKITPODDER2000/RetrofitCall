@@ -25,6 +25,9 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
     private val _userDetail: MutableStateFlow<ApiResponse> = MutableStateFlow(ApiResponse.NotStarted)
     val userDetail = _userDetail.asStateFlow()
 
+    private val _getRandomDog: MutableStateFlow<ApiResponse> = MutableStateFlow(ApiResponse.NotStarted)
+    val getRandomDog = _getRandomDog.asStateFlow()
+
     fun getAllPosts() {
         _allPostResponse.value = ApiResponse.Started
         viewModelScope.launch((Dispatchers.IO)) {
@@ -60,6 +63,16 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         return viewModelScope.async(Dispatchers.IO) {
             val response = mainRepository.createNewPost(post).await()
             response.body()
+        }
+    }
+
+    fun getRandomDog(breed: String) {
+        _getRandomDog.value = ApiResponse.Started
+        viewModelScope.launch((Dispatchers.IO)) {
+            val response = mainRepository.getRandomDog(breed).await()
+            if (response.isSuccessful && response.body() != null) _getRandomDog.value =
+                ApiResponse.Success(response.body())
+            else _getRandomDog.value = ApiResponse.Error("Error code is : ${response.code()}")
         }
     }
 

@@ -3,7 +3,6 @@ package com.example.retrofitcall.ui.screen
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -52,9 +51,10 @@ fun MainScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(NavRoute.HOME_SCREEN.name) {
-                HomeScreen {
-                    navHostController.navigate(NavRoute.ALL_POST_SCREEN.name)
-                }
+                HomeScreen(
+                    { navHostController.navigate(NavRoute.ALL_POST_SCREEN.name) },
+                    { navHostController.navigate(NavRoute.DOG_API.name) }
+                )
             }
             composable(NavRoute.ALL_POST_SCREEN.name) {
                 PostsScreen(mainViewModel) { postId ->
@@ -72,6 +72,9 @@ fun MainScreen(
             }
             composable(NavRoute.CREATE_NEW_POST.name) {
                 AddPostScreen(mainViewModel)
+            }
+            composable(NavRoute.DOG_API.name) {
+                RandomDogImageScree(mainViewModel)
             }
         }
     }

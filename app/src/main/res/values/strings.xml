@@ -3,4 +3,5 @@
     <string name="back_button">Back Button</string>
     <string name="add_new_post">Add New Post</string>
     <string name="show_all_posts">Show All Posts</string>
+    <string name="fetch_random_dog_image">Fetch Random Dog Image</string>
 </resources>
