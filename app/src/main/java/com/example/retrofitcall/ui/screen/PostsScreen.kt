@@ -68,21 +68,23 @@ fun ShowAllPost(response: List<Post>, showDetailPost: (postId: Int) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShowPost(post: Post, showDetailPost: (postId: Int) -> Unit) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shadowElevation = 2.dp,
-        tonalElevation = 8.dp,
-        shape = RoundedCornerShape(8.dp),
-        onClick = {
-            showDetailPost(post.id)
-        }
-    )
-    {
-        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
-            Text(text = post.title, modifier = Modifier.padding(bottom = 8.dp), fontSize = 24.sp)
-            Text(text = post.body, fontSize = 18.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+    post.id?.let {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            shadowElevation = 2.dp,
+            tonalElevation = 8.dp,
+            shape = RoundedCornerShape(8.dp),
+            onClick = {
+                showDetailPost(it)
+            }
+        )
+        {
+            Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
+                Text(text = post.title, modifier = Modifier.padding(bottom = 8.dp), fontSize = 24.sp)
+                Text(text = post.body, fontSize = 18.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
         }
     }
 }
@@ -90,7 +92,7 @@ fun ShowPost(post: Post, showDetailPost: (postId: Int) -> Unit) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewShowPost() {
-    ShowPost(Post("Hello World", 1, "Test", 1)) {
+    ShowPost(Post("Hello World","Test", 1, 1)) {
 
     }
 }

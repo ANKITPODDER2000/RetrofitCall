@@ -40,8 +40,9 @@ fun MainScreen(
                     else navHostController.navigateUp()
                 },
                 {
-
-                })
+                    navHostController.navigate(NavRoute.CREATE_NEW_POST.name)
+                }
+            )
         }
     ) { paddingValues ->
         NavHost(
@@ -50,9 +51,10 @@ fun MainScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(NavRoute.HOME_SCREEN.name) {
-                HomeScreen {
-                    navHostController.navigate(NavRoute.ALL_POST_SCREEN.name)
-                }
+                HomeScreen(
+                    { navHostController.navigate(NavRoute.ALL_POST_SCREEN.name) },
+                    { navHostController.navigate(NavRoute.DOG_API.name) }
+                )
             }
             composable(NavRoute.ALL_POST_SCREEN.name) {
                 PostsScreen(mainViewModel) { postId ->
@@ -67,6 +69,12 @@ fun MainScreen(
                     -1
                 }
                 DetailPostScreen(mainViewModel, postId)
+            }
+            composable(NavRoute.CREATE_NEW_POST.name) {
+                AddPostScreen(mainViewModel)
+            }
+            composable(NavRoute.DOG_API.name) {
+                RandomDogImageScree(mainViewModel)
             }
         }
     }

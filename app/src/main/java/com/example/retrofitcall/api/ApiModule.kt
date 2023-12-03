@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -30,14 +31,21 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun getRetrofitInstance(client: OkHttpClient): Retrofit {
-        return Retrofit.Builder().baseUrl(ApiConstant.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()).client(client).build()
+    fun getRetrofitInstance(client: OkHttpClient): Retrofit.Builder {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create()).client(client)
     }
 
     @Provides
     @Singleton
-    fun getPostApi(retrofit: Retrofit): PostAPI {
-        return retrofit.create(PostAPI::class.java)
+    fun getPostApi(retrofitBuilder: Retrofit.Builder): PostAPI {
+        return retrofitBuilder.baseUrl(ApiConstant.POST_BASE_URL).build()
+            .create(PostAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun getDogApi(retrofitBuilder: Retrofit.Builder): DogAPI {
+        return retrofitBuilder.baseUrl(ApiConstant.IMAGE_BASE_URL).build().create(DogAPI::class.java)
     }
 }
